@@ -1,0 +1,72 @@
+﻿@model IEnumerable<ShipmentTrackingSystem.Models.Shipment>
+@using ShipmentTrackingSystem.Models
+@{
+    var drivers = ViewBag.Drivers as List<Driver>;
+    var users = ViewBag.Users as List<AppUser>;
+}
+@if (TempData["msg"] != null)
+{
+    <div class="alert alert-success">@TempData["msg"]</div>
+}
+@if (TempData["err"] != null)
+{
+    <div class="alert alert-danger">@TempData["err"]</div>
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Shipments</h3>
+    <div>
+        <a class="btn btn-outline-secondary me-2" href="/Drivers">Drivers</a>
+        
+        <a class="btn btn-primary" href="/Shipments/Create">+ New</a>
+    </div>
+</div>
+
+<table class="table table-hover align-middle">
+    <thead>
+        <tr><th>#</th><th>Tracking</th><th>Status</th><th>Driver</th><th>User</th><th>From</th><th>To</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+        @foreach (var s in Model)
+        {
+            <tr>
+                <td>@s.Id</td>
+                <td>
+                    <div>@s.TrackingNumber</div>
+                    <a class="small" href="/t/@s.TrackingNumber" target="_blank">Track</a>
+                </td>
+                <td>@s.Status<br /><span class="text-muted small">@s.StatusNote</span></td>
+                <td>
+                    <form method="post" action="/Shipments/Assign" class="d-flex gap-1">
+                        <input type="hidden" name="shipmentId" value="@s.Id" />
+                        <select name="driverId" class="form-select form-select-sm" style="max-width:210px" @(s.Status == ShipmentStatus.InTransit || s.Status == ShipmentStatus.Delivered || s.Status == ShipmentStatus.Cancelled ? "disabled" : null)>
+                            @foreach (var d in drivers!)
+                            {
+                                if (s.DriverId == d.Id)
+                                {
+                                    <option value="@d.Id" selected>@d.NationalId (@d.Phone)</option>
+                                }
+                                else
+                                {
+                                    <option value="@d.Id">@d.NationalId (@d.Phone)</option>
+                                }
+                            }
+                        </select>
+                        <button class="btn btn-sm btn-outline-primary" @(s.Status == ShipmentStatus.InTransit || s.Status == ShipmentStatus.Delivered || s.Status == ShipmentStatus.Cancelled ? "disabled" : null)>Save</button>
+                    </form>
+                </td>
+                <td>@s.User.Email</td>
+                <td>@s.OriginAddress</td>
+                <td>@s.DestinationAddress</td>
+                <td class="d-flex gap-1">
+                    <a class="btn btn-sm btn-info" href="/Shipments/EditLocation/@s.Id">Edit</a>
+                    <form method="post" action="/Shipments/Cancel/@s.Id"><button class="btn btn-sm btn-warning" @(s.Status == ShipmentStatus.Delivered || s.Status == ShipmentStatus.Cancelled ? "disabled" : null)>Cancel</button></form>
+                    @if (s.Status is ShipmentStatus.Delivered or ShipmentStatus.Cancelled)
+                    {
+                        <form method="post" action="/Shipments/Delete/@s.Id" onsubmit="return confirm('Delete?');"><button class="btn btn-sm btn-danger">Delete</button></form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,35 @@
+﻿@model IEnumerable<ShipmentTrackingSystem.Models.Shipment>
+
+@{
+    ViewData["Title"] = "My Shipments";
+}
+
+<h2 class="mb-3">My Shipments</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Driver number</th>
+            <th>Status</th>
+            <th>To</th>
+            <th>From</th>
+            <th>Tracking</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var s in Model)
+        {
+            <tr>
+                <td>
+                    <a class="btn btn-primary btn-sm" href="/t/@s.TrackingNumber">Track</a>
+                </td>
+                <td>@(s.Driver?.Phone ?? "—")</td>
+                <td>@s.Status</td>
+                <td>@s.DestinationAddress</td>
+                <td>@s.OriginAddress</td>
+                <td>@s.TrackingNumber</td>
+            </tr>
+        }
+    </tbody>
+</table>

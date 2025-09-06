@@ -1,0 +1,52 @@
+﻿@{
+    var drivers = ViewBag.Drivers as List<ShipmentTrackingSystem.Models.Driver>;
+    var users = ViewBag.Users as List<ShipmentTrackingSystem.Models.AppUser>;
+    var allowedUsers = (users ?? new()).Where(u => !string.Equals(u.Email, "ahmedhazemhady@hotmail.com", StringComparison.OrdinalIgnoreCase))
+                                       .OrderBy(u => u.Email)
+                                       .ToList();
+}
+<h3>New Shipment</h3>
+<form method="post">
+    <div class="row">
+        <div class="col-md-6">
+            <h5>Origin</h5>
+            <div class="mb-2"><label class="form-label">Address</label><input name="originAddress" class="form-control" required></div>
+            <div class="mb-2"><label class="form-label">Lat</label><input name="originLat" type="number" step="any" class="form-control" required></div>
+            <div class="mb-2"><label class="form-label">Lng</label><input name="originLng" type="number" step="any" class="form-control" required></div>
+        </div>
+        <div class="col-md-6">
+            <h5>Destination</h5>
+            <div class="mb-2"><label class="form-label">Address</label><input name="destinationAddress" class="form-control" required></div>
+            <div class="mb-2"><label class="form-label">Lat</label><input name="destLat" type="number" step="any" class="form-control" required></div>
+            <div class="mb-2"><label class="form-label">Lng</label><input name="destLng" type="number" step="any" class="form-control" required></div>
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-md-6">
+            <label class="form-label">Driver</label>
+            <select name="driverId" class="form-select" required>
+                <option value="">Select</option>
+                @foreach (var d in drivers!)
+                {
+                    <option value="@d.Id">@d.NationalId (@d.Phone)</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">User</label>
+            <select name="userId" class="form-select" required>
+                <option value="">Select</option>
+                @foreach (var u in allowedUsers)
+                {
+                    <option value="@u.Id">@u.Email</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <button class="btn btn-success">Create</button>
+        <a class="btn btn-secondary" href="/Shipments">Back</a>
+    </div>
+</form>

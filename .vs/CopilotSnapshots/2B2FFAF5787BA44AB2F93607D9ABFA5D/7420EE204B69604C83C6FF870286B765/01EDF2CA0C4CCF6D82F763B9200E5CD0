@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Register";
+}
+<h2>Create Account</h2>
+<form asp-action="Register" method="post" class="mt-3">
+    <div class="mb-3">
+        <label class="form-label">Full Name</label>
+        <input name="fullName" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input name="email" class="form-control" />
+        @Html.ValidationMessage("email", new { @class = "text-danger" })
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input name="password" type="password" class="form-control" />
+        @Html.ValidationMessage("password", new { @class = "text-danger" })
+    </div>
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    <button class="btn btn-success">Register</button>
+</form>

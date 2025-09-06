@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Register";
+}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h3 class="mb-3 text-center">Create Account</h3>
+                <form asp-action="Register" method="post" class="mt-2">
+                    @Html.AntiForgeryToken()
+                    <div class="mb-3">
+                        <label class="form-label">Full Name</label>
+                        <input name="fullName" class="form-control" placeholder="John Doe" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input name="email" class="form-control" placeholder="you@example.com" />
+                        @Html.ValidationMessage("email", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input name="password" type="password" class="form-control" placeholder="At least 6 characters" />
+                        @Html.ValidationMessage("password", new { @class = "text-danger" })
+                    </div>
+                    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                    <button class="btn btn-success w-100">Register</button>
+                </form>
+                <div class="text-center mt-3">
+                    <a asp-action="Login" class="small">Already have an account? Sign in</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

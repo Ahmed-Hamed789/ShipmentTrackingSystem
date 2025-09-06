@@ -1,0 +1,12 @@
+﻿@{
+    var err = ViewBag.Err as string;
+}
+<h3>Find Shipment</h3>
+@if (!string.IsNullOrEmpty(err))
+{
+    <div class="alert alert-danger">@err</div>
+}
+<form method="post">
+    <div class="mb-2"><label class="form-label">Tracking Number</label><input name="trackingNumber" class="form-control" required></div>
+    <button class="btn btn-primary">Track</button>
+</form>

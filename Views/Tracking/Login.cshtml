@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Track Login";
+    var err = ViewBag.Err as string;
+}
+<h3>Track a Shipment</h3>
+@if (!string.IsNullOrEmpty(err))
+{
+    <div class="alert alert-danger">@err</div>
+}
+<form method="post">
+    <div class="mb-2">
+        <label class="form-label">Tracking Number</label>
+        <input name="trackingNumber" class="form-control" value="@ViewBag.Tn">
+    </div>
+    <div class="mb-2">
+        <label class="form-label">PIN</label>
+        <input name="pin" class="form-control" required>
+    </div>
+    <button class="btn btn-success">Track</button>
+</form>
+<p class="text-muted mt-2">After login you can open the short link: <code>/t/&lt;TRACKING&gt;</code>.</p>

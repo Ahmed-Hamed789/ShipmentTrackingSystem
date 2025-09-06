@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "User Login";
+}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h3 class="mb-3 text-center">Sign in</h3>
+                <form asp-action="Login" method="post" class="mt-2">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input name="email" class="form-control" placeholder="you@example.com" />
+                        @Html.ValidationMessage("email", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input name="password" type="password" class="form-control" placeholder="••••••••" />
+                        @Html.ValidationMessage("password", new { @class = "text-danger" })
+                    </div>
+                    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                    <button class="btn btn-primary w-100">Login</button>
+                </form>
+                <div class="text-center mt-3">
+                    <a asp-action="Register" class="small">Create an account</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

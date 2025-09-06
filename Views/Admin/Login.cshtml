@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "Admin Login";
+    var err = ViewBag.Err as string;
+}
+<h3>Admin Login</h3>
+@if (!string.IsNullOrEmpty(err))
+{
+    <div class="alert alert-danger">@err</div>
+}
+<form method="post">
+    <div class="mb-2"><label class="form-label">Username</label><input name="username" class="form-control" required></div>
+    <div class="mb-2"><label class="form-label">Password</label><input name="password" type="password" class="form-control" required></div>
+    <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+    <button class="btn btn-primary">Login</button>
+</form>

@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ShipmentTrackingSystem.Models.Driver>
+@{
+    ViewData["Title"] = "Drivers";
+}
+
+<div class="mb-3">
+    <a asp-action="Create" class="btn btn-primary">Add Driver +</a>
+</div>
+
+<h2 class="mb-3">Drivers</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Actions</th>
+            <th>Active</th>
+            <th>Phone</th>
+            <th>National ID</th>   @* <-- بدل Name *@
+            <th>#</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var d in Model)
+        {
+            <tr>
+                <td class="d-flex gap-2">
+                    <form asp-action="Delete" asp-route-id="@d.Id" method="post" onsubmit="return confirm('Delete this driver?');">
+                        <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                    </form>
+
+                    <a class="btn btn-outline-secondary btn-sm"
+                       asp-action="EditPhone"
+                       asp-route-id="@d.Id">Edit Phone</a>
+                </td>
+                <td>@d.IsActive</td>
+                <td>@d.Phone</td>
+                <td>@d.NationalId</td>  @* <-- عرض الرقم القومي *@
+                <td>@d.Id</td>
+            </tr>
+        }
+    </tbody>
+</table>

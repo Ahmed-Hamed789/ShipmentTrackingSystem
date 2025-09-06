@@ -1,0 +1,14 @@
+﻿@model ShipmentTrackingSystem.Models.Shipment
+<h3>Edit Current Location for @Model.TrackingNumber</h3>
+<form method="post">
+    <div class="row">
+        <div class="col-md-4"><label class="form-label">Lat</label><input name="lat" class="form-control" type="number" step="any" required></div>
+        <div class="col-md-4"><label class="form-label">Lng</label><input name="lng" class="form-control" type="number" step="any" required></div>
+        <div class="col-md-4"><label class="form-label">Speed km/h</label><input name="speedKmh" class="form-control" type="number" step="any"></div>
+    </div>
+    <div class="mt-2"><label class="form-label">Note</label><input name="note" class="form-control"></div>
+    <div class="mt-3">
+        <button class="btn btn-primary">Save</button>
+        <a class="btn btn-secondary" href="/Shipments">Back</a>
+    </div>
+</form>

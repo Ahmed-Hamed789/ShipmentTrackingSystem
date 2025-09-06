@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Add Driver";
+    var nationalId = ViewData["nationalId"] as string ?? "";
+    var phone = ViewData["phone"] as string ?? "";
+}
+<h2>Add Driver</h2>
+
+<form asp-action="Create" method="post" class="mt-3">
+    <div class="mb-3">
+        <label class="form-label">National ID</label>
+        <input name="nationalId" class="form-control" value="@nationalId" />
+        @Html.ValidationMessage("nationalId", new { @class = "text-danger" })
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Phone</label>
+        <input name="phone" class="form-control" value="@phone" />
+        @Html.ValidationMessage("phone", new { @class = "text-danger" })
+    </div>
+
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
+    <button type="submit" class="btn btn-success">Save</button>
+</form>
